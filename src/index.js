@@ -12,6 +12,7 @@ class Chart extends React.Component{
     }
     this.deleteEmployee = this.deleteEmployee.bind(this)
     this.removeEmployeeFromDepartment = this.removeEmployeeFromDepartment.bind(this)
+    this.countEmployees = this.countEmployees.bind(this)
   }
 
   async componentDidMount(){
@@ -34,16 +35,26 @@ class Chart extends React.Component{
     this.componentDidMount();
   }
 
+  countEmployees(depId){
+    let count = 0;
+    for(let emp of this.state.employees){
+      if(emp.DepartmentId===depId){count++;}
+    }
+    return count;
+  }
+
   render(){
     const {deleteEmployee} = this;
     const {removeEmployeeFromDepartment} = this;
+    const {countEmployees} = this;
+    const totalEmpl = this.state.employees.length;
     return (
       <div>
         <h1>Acme Employees And Departments</h1>
-        <div>Total Employees</div>
+        <div>Total Employees ({totalEmpl})</div>
         <div id = "container">
           <div className="column">
-            <h4 className = "department">Employees Without Departments</h4>
+        <h4 className = "department">Employees Without Departments({countEmployees(null)})</h4>
             <ul>
               {
                 this.state.employees.map(empl=>{
@@ -65,7 +76,7 @@ class Chart extends React.Component{
             this.state.departments.map(dep =>{
               return (
               <div className="column">
-                <h4 className = "department" key={dep.id}>{dep.name.toUpperCase()}</h4>
+                <h4 className = "department" key={dep.id}>{dep.name.toUpperCase()}({countEmployees(dep.id)})</h4>
                 <ul>
                   {
                   this.state.employees.map(empl=>{
