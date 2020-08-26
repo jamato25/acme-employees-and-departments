@@ -2,17 +2,28 @@
   <head>
     <style>
       #container{
-        display:flex
+        display: flex
       }
       .department{
-        flex-grow:1;
+        flex: 1
       }
-
+      .column{
+        border-left:1px solid black;
+        padding: 1rem
+      }
+      ul{
+        list-style-type: none;
+        text-align:left;
+        padding-left:0rem;
+      }
+      li{
+        padding-top:1rem;
+        padding-bottom:1rem;
+      }
     </style>
-    <script src = "dist/main.js"></script>
+    <script defer src = "./dist/main.js" ></script>
   </head>
   <body>
     <div id = "app"></div>
-    <script src = "dist/main.js"></script>
   </body>
 </html>

@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
+app.use("/dist", express.static(path.join(__dirname, "dist")));
 
 app.get('/', async (req, res, next) => {
   res.sendFile(path.join(__dirname + '/index.html'));
@@ -27,12 +28,16 @@ app.get('/api/departments', async(req,res,next)=>{
   res.send(dep)
 })
 
-app.delete('/api/employees', async(req,res,next)=>{
-
+app.delete('/api/employees/:id', async(req,res,next)=>{
+  const emp = await Employees.findByPk(req.params.id);
+  await emp.destroy()
+  res.send(emp);
 })
 
-app.put('/api/eployees/:id', async(req,res,next)=>{
-
+app.put('/api/employees/:id', async(req,res,next)=>{
+  const emp = await Employees.findByPk(req.params.id);
+  await emp.update({DepartmentId: null})
+  res.send(Employees);
 })
 const init = async()=>{
   await db.syncAndSeed();
